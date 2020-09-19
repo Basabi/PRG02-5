@@ -80,18 +80,9 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
+                    <h3>Dit word ooit de login/registreer pagina en uiteindelijk zorg ik ervoor dat je de rest niet kan zien zonder in te loggen</h3>
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="{{route('about')}}">About</a>
+                    <a href="{{route('game.overzicht')}}">Game overzicht</a>
                 </div>
             </div>
         </div>

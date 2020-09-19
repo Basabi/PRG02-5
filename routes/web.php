@@ -15,4 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about', 'AboutController@show')->name('about');
+Route::get('about', 'AboutController@show')->name('about');
+Route::get('overzicht', 'GameItemController@index')->name('game.overzicht');
+Route::get('create', 'GameItemController@create')->name('game.create');
+Route::post('store', 'GameItemController@store')->name('game.store');
+Route::get('news/{id}', 'GameItemController@show')->name('game.show');
