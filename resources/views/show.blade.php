@@ -13,9 +13,10 @@
     <div class="container">
         @if($gameItem)
             <article>
+                <h3 class="card-title">Votes: {{$gameItem['votes']}}</h3>
                 <p>{{$gameItem['description']}}</p>
                 <iframe width="420" height="315"
-                        src="{{$gameItem['link']}}">
+                        src="{{$gameItem['ytlink']}}">
                 </iframe>
             </article>
         @endif

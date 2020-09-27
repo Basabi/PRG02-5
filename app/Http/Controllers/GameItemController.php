@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\GameItem;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,13 @@ class GameItemController extends Controller
      */
     public function index()
     {
-        $GameItems = GameItem::all();
+        $GameItems = GameItem::orderBy('votes', 'desc')->get();
         return view('overzicht')->with(['gameItems' => $GameItems]);
+    }
+
+    public function filter()
+    {
+
     }
 
     /**
@@ -24,7 +30,8 @@ class GameItemController extends Controller
 
     public function create()
     {
-        return view('create');
+        $categories = Category::all();
+        return view('create', compact('categories'));
     }
 
     /**
@@ -37,12 +44,18 @@ class GameItemController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'image' => 'required',
+            'ytlink' => 'required',
+            'category' => ['exists:categories,id'],
         ]);
 
         $gameItem = new GameItem();
         $gameItem->title = $request->get('title');
+        $gameItem->votes = '0';
         $gameItem->description = $request->get('description');
         $gameItem->image = $request->get('image');
+        $gameItem->ytlink = $request->get('ytlink');
+        $gameItem->category_id = $request->get('category');
 
         $gameItem->save();
         return redirect('overzicht')->with('success', 'Bericht is opgeslagen!');
@@ -50,17 +63,11 @@ class GameItemController extends Controller
 
     public function show($id)
     {
-        try{
-            $gameItem = GameItem::find($id);
-            $error = null;
-        } catch (\Exception $e){
-            $gameItem = null;
-            $error = $e->getMessage();
+        $gameItem = GameItem::find($id);
+        if($gameItem === null) {
+            abort(404, "Dit gameitem is helaas niet gevonden");
         }
 
-        return view('show', [
-            'gameItem' => $gameItem,
-            'error' => $error
-        ]);
+        return view('show', compact('gameItem'));
     }
 }

@@ -4,7 +4,6 @@
     <header class="jumbotron">
         <h1 class="modal-title float-left">Game muziek</h1>
         <a class="nav-link float-right" href="{{route('game.create')}}">Voeg nieuwe game muziek toe</a>
-        <a class="nav-link float-right" href="#">3 willekeurige nummers?</a>
 
 
     </header>
