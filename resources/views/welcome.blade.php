@@ -80,9 +80,9 @@
             @endif
 
             <div class="content">
-                    <h3>Dit word ooit de login/registreer pagina en uiteindelijk zorg ik ervoor dat je de rest niet kan zien zonder in te loggen</h3>
+                    <h3>Login om naar het overzicht te gaan!</h3>
                 <div class="links">
-                    <a href="{{route('game.overzicht')}}">Game overzicht</a>
+                    <a href="{{route('game.overzicht')}}">Login</a>
                 </div>
             </div>
         </div>

@@ -16,7 +16,11 @@ Route::get('/', function () {
 });
 
 Route::get('about', 'AboutController@show')->name('about');
-Route::get('overzicht', 'GameItemController@index')->name('game.overzicht');
-Route::get('create', 'GameItemController@create')->name('game.create');
-Route::post('store', 'GameItemController@store')->name('game.store');
-Route::get('news/{id}', 'GameItemController@show')->name('game.show');
+Route::get('overzicht', 'GameItemController@index')->name('game.overzicht')->middleware('auth');
+Route::get('create', 'GameItemController@create')->name('game.create')->middleware('auth', 'checkUserPostsNumber');
+Route::post('store', 'GameItemController@store')->name('game.store')->middleware('auth');
+Route::get('news/{id}', 'GameItemController@show')->name('game.show')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
