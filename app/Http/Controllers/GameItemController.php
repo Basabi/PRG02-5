@@ -70,4 +70,20 @@ class GameItemController extends Controller
 
         return view('show', compact('gameItem'));
     }
+
+    public function deletefromdatabase($id)
+    {
+        //$id->delete();
+    }
+
+    public function admin()
+    {
+        $GameItems = GameItem::orderBy('votes', 'desc')->get();
+        return view('admin')->with(['gameItems' => $GameItems]);
+    }
+
+    public function nopermission()
+    {
+        return view('nopermission');
+    }
 }

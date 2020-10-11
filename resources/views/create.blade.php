@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label for="link">Youtube embed link</label>
                 <input type="text" class="form-control" id="ytlink" name="ytlink">
-                @if ($errors->has('link'))
+                @if ($errors->has('ytlink'))
                     <span class="alert-danger form-check-inline">{{$errors->first('ytlink')}}</span>
                 @endif
             </div>
