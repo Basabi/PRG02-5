@@ -21,6 +21,8 @@ Route::get('create', 'GameItemController@create')->name('game.create')->middlewa
 Route::post('store', 'GameItemController@store')->name('game.store')->middleware('auth');
 Route::get('news/{id}', 'GameItemController@show')->name('game.show')->middleware('auth');
 Route::get('delete/{id}', 'GameItemController@deletefromdatabase')->name('game.delete')->middleware('auth');
+Route::get('likes/{id}', 'GameItemController@like')->name('game.like')->middleware('auth');
+Route::get('/categories', 'CategoryController@index')->name('categories')->middleware('auth');
 
 Auth::routes();
 

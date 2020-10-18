@@ -50,6 +50,9 @@
                                     <a class="dropdown-item" href="{{ route('game.overzicht') }}">
                                         {{ __('Overzicht') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('categories') }}">
+                                        {{ __('Categories') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('admin') }}">
                                         {{ __('Admin') }}
                                     </a>

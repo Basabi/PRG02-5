@@ -18,6 +18,7 @@
         @if($gameItem)
             <article>
                 <h3 class="card-title">Votes: {{$gameItem['votes']}}</h3>
+                <a href="{{route('game.like', ['id' => $gameItem->id] )}}">VOTE!</a>
                 <p>{{$gameItem['description']}}</p>
                 <iframe width="420" height="315"
                         src="{{$gameItem['ytlink']}}">
