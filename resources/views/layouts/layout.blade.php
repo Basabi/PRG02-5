@@ -53,6 +53,9 @@
                                     <a class="dropdown-item" href="{{ route('categories') }}">
                                         {{ __('Categories') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('zoeken') }}">
+                                        {{ __('Zoeken') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('admin') }}">
                                         {{ __('Admin') }}
                                     </a>

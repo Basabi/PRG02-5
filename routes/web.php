@@ -20,16 +20,18 @@ Route::get('overzicht', 'GameItemController@index')->name('game.overzicht')->mid
 Route::get('create', 'GameItemController@create')->name('game.create')->middleware('auth');
 Route::post('store', 'GameItemController@store')->name('game.store')->middleware('auth');
 Route::get('news/{id}', 'GameItemController@show')->name('game.show')->middleware('auth');
-Route::get('delete/{id}', 'GameItemController@deletefromdatabase')->name('game.delete')->middleware('auth');
+Route::get('delete/{id}', 'GameItemController@delete')->name('game.delete')->middleware('auth');
 Route::get('likes/{id}', 'GameItemController@like')->name('game.like')->middleware('auth');
 Route::get('/categories', 'CategoryController@index')->name('categories')->middleware('auth');
+Route::get('/zoeken', 'GameItemController@zoeken')->name('zoeken')->middleware('auth');
+Route::post('/zoekenResultaat', 'GameItemController@zoekenResultaat')->name('zoekenResultaat')->middleware('auth');
 
 Auth::routes();
 
 Route::group(['middleware' => ['admin']], function(){
-    Route::get('/admin', 'GameItemController@admin')->name('admin');
+    Route::get('/admin', 'AdminController@admin')->name('admin');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/nopermission', 'GameItemController@nopermission')->name('nopermission');
+Route::get('/nopermission', 'AdminController@nopermission')->name('nopermission');

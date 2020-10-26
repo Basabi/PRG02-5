@@ -14,4 +14,11 @@ class CategoryController extends Controller
 
         return view('categories.index', compact('categories'));
     }
+
+    public function zoeken()
+    {
+        $categories = Category::with('gameItems')->get();
+
+        return view('zoeken', compact('categories'));
+    }
 }

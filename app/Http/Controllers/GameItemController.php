@@ -71,19 +71,28 @@ class GameItemController extends Controller
         return view('show', compact('gameItem'));
     }
 
-    public function deletefromdatabase($id)
+    public function delete($id)
     {
-        //$id->delete();
+        GameItem::find($id)->delete();
+
+        return redirect('admin')->with('success', 'Bericht is verwijderd');
     }
 
-    public function admin()
+    public function zoeken()
     {
-        $GameItems = GameItem::orderBy('votes', 'desc')->get();
-        return view('admin')->with(['gameItems' => $GameItems]);
+        return view('zoeken');
     }
 
-    public function nopermission()
+    public function zoekenResultaat(Request $request)
     {
-        return view('nopermission');
+        $request->validate([
+            'zoekveld' => 'required',
+        ]);
+
+
+        $zoekveld = $request->get('zoekveld');
+
+        $GameItems = GameItem::where('title', 'LIKE', '%'.$zoekveld.'%')->get();
+        return view('overzicht')->with(['gameItems' => $GameItems]);
     }
 }
