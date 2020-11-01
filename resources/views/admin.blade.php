@@ -10,32 +10,45 @@
                         <strong>{{$message}}</strong>
                     </div>
                 @endif
-                <table style="border:1px solid black;">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>titel</th>
-                        <th>beschrijving</th>
-                        <th>votes</th>
-                        <th>image link</th>
-                        <th>youtube link</th>
-                        <th>Verwijderen</th>
-                        <th colspan="3"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($gameItems as $gameItem)
-                    <tr>
-                        <td>{{$gameItem['id']}}</td>
-                        <td>{{$gameItem['title']}}</td>
-                        <td>{{$gameItem['description']}}</td>
-                        <td>{{$gameItem['votes']}}</td>
-                        <td><a href="{{$gameItem['image']}}">{{$gameItem['image']}}</a></td>
-                        <td><a href="{{$gameItem['ytlink']}}">{{$gameItem['ytlink']}}</a></td>
-                        <td><a class="btn btn-light" href="{{route('game.delete', $gameItem['id'])}}">Delete</a></td>
-                    </tr>
+
+                @foreach($gameItems as $gameItem)
+                    <form method="post" action="{{route('game.waardig', $gameItem['id'])}}')}}">
+                        @csrf
+                        <table style="border:1px solid black; width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>titel</th>
+                                <th>beschrijving</th>
+                                <th>youtube link</th>
+                                <th>Voorpagina waardig?</th>
+                                <th>Verwijderen</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>{{$gameItem['id']}}</td>
+                                    <td>{{$gameItem['title']}}</td>
+                                    <td>{{$gameItem['description']}}</td>
+                                    <td><a href="{{$gameItem['ytlink']}}">{{$gameItem['ytlink']}}</a></td>
+
+                                    @if($gameItem['likes'] == 0)
+                                        <input type="hidden" id="waardig" name="waardig" value="welwaardig">
+                                        <td> <button type="submit" class="btn btn-danger"> Nee. Aanpassen naar waardig?</button></td>
+                                    @endif
+
+                                    @if($gameItem['likes'] == 1)
+                                        <input type="hidden" id="waardig" name="waardig" value="nietwaardig">
+                                        <td> <button type="submit" class="btn btn-primary"> Ja. Aanpassen naar niet waardig?</button></td>
+                                    @endif
+
+                                    <td><a class="btn btn-light" href="{{route('game.delete', $gameItem['id'])}}">Delete</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <br>
                     @endforeach
-                    </tbody>
-                </table>
             </div>
 @endsection

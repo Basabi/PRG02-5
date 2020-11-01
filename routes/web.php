@@ -11,25 +11,33 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('about', 'AboutController@show')->name('about');
-Route::get('overzicht', 'GameItemController@index')->name('game.overzicht')->middleware('auth');
-Route::get('create', 'GameItemController@create')->name('game.create')->middleware('auth');
-Route::post('store', 'GameItemController@store')->name('game.store')->middleware('auth');
-Route::get('news/{id}', 'GameItemController@show')->name('game.show')->middleware('auth');
-Route::get('delete/{id}', 'GameItemController@delete')->name('game.delete')->middleware('auth');
-Route::get('likes/{id}', 'GameItemController@like')->name('game.like')->middleware('auth');
-Route::get('/categories', 'CategoryController@index')->name('categories')->middleware('auth');
-Route::get('/zoeken', 'GameItemController@zoeken')->name('zoeken')->middleware('auth');
-Route::post('/zoekenResultaat', 'GameItemController@zoekenResultaat')->name('zoekenResultaat')->middleware('auth');
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('about', 'AboutController@show')->name('about');
+    Route::get('overzicht', 'GameItemController@index')->name('game.overzicht');
+    Route::get('create', 'GameItemController@create')->name('game.create');
+    Route::post('store', 'GameItemController@store')->name('game.store');
+    Route::get('news/{id}', 'GameItemController@show')->name('game.show');
+    Route::get('delete/{id}', 'GameItemController@delete')->name('game.delete');
+    Route::post('waardig/{id}', 'GameItemController@waardig')->name('game.waardig');
+    Route::get('/categories', 'CategoryController@index')->name('categories');
+    Route::get('/zoeken', 'GameItemController@zoeken')->name('zoeken');
+    Route::post('/zoeken/resultaat', 'GameItemController@zoekenResultaat')->name('zoekenResultaat');
+    Route::get('/profile', 'ProfileController@index')->name('profile');
+    Route::post('/profile/update', 'ProfileController@update')->name('profile.update');
+});
 
 Auth::routes();
 
 Route::group(['middleware' => ['admin']], function(){
     Route::get('/admin', 'AdminController@admin')->name('admin');
+    Route::post('createcategory', 'AdminController@createcategory')->name('createcategory');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

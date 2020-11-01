@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\GameItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameItemController extends Controller
 {
@@ -15,13 +16,28 @@ class GameItemController extends Controller
      */
     public function index()
     {
-        $GameItems = GameItem::orderBy('votes', 'desc')->get();
+        $GameItems = GameItem::orderBy('likes', 'desc')->get();
         return view('overzicht')->with(['gameItems' => $GameItems]);
     }
 
-    public function filter()
+    public function waardig(Request $request, $id)
     {
+        $iswaardig = $request->get('waardig');
 
+        if($iswaardig == 'welwaardig')
+        {
+            DB::table('game_items')
+                ->where('id', $id)
+                ->update(['likes' => '1']);
+        }
+        if($iswaardig == 'nietwaardig')
+        {
+            DB::table('game_items')
+                ->where('id', $id)
+                ->update(['likes' => '0']);
+        }
+
+        return redirect('admin')->with('success', 'De waardigheid van het bericht is aangepast!');
     }
 
     /**
@@ -41,17 +57,19 @@ class GameItemController extends Controller
 
     public function store(Request $request)
     {
+        $regex = '/www.youtube.com/';
+
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'image' => 'required',
-            'ytlink' => 'required',
+            'image' => 'required|string|min:1|max:255',
+            'ytlink' => 'required|regex:'.$regex,
             'category' => ['exists:categories,id'],
         ]);
 
         $gameItem = new GameItem();
         $gameItem->title = $request->get('title');
-        $gameItem->votes = '0';
+        $gameItem->likes = '0';
         $gameItem->description = $request->get('description');
         $gameItem->image = $request->get('image');
         $gameItem->ytlink = $request->get('ytlink');
@@ -75,7 +93,7 @@ class GameItemController extends Controller
     {
         GameItem::find($id)->delete();
 
-        return redirect('admin')->with('success', 'Bericht is verwijderd');
+        return redirect('admin')->with('success', 'Het bericht is verwijderd!');
     }
 
     public function zoeken()

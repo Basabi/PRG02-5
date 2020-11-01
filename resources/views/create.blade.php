@@ -5,7 +5,7 @@
         <h1 class="modal-title float-left">Voeg game muziek toe</h1>
         <a class="nav-link float-right" href="{{route('game.overzicht')}}">Terug naar game muziek overzicht</a>
     </header>
-
+    @if(1 >= 0)
     <div class="container">
         <form method="post" action="{{route('game.store')}}">
             @csrf
@@ -51,4 +51,21 @@
             <button type="submit" class="btn-primary btn-block">Bericht opslaan</button>
         </form>
     </div>
+    @else
+    <p>Je hebt nog geen rechten om te posten. Om rechten te krijgen moet je de onderstaande knop 5 keer indrukken.</p>
+    <form action="">
+        @if(1 == 1)
+            <button type="submit">Klik nog 5 keer op mij!</button>
+        @elseif(1 == 2)
+            <button type="submit">Klik nog 4 keer op mij!</button>
+        @elseif(1 == 3)
+            <button type="submit">Klik nog 3 keer op mij!</button>
+        @elseif(1 == 4)
+            <button type="submit">Klik nog 2 keer op mij!</button>
+        @elseif(1 == 5)
+        <button type="submit">Klik nog 1 keer op mij!</button>
+        @endif
+    </form>
+    @endif
+
 @endsection

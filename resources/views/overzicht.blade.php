@@ -19,7 +19,6 @@
                         <div  class="col-sm-4 card border-0">
                             <h2 class="card-title">{{$gameItem['title']}}</h2>
                             <h3 class="card-title">{{$gameItem['category']->title}}</h3>
-                            <h3 class="card-title">Votes: {{$gameItem['votes']}}</h3>
                             <img  class="card-img" width="50%" height="50%" src="{{$gameItem['image']}}" alt="{{$gameItem['title']}}" >
                             <a class="btn btn-light" href="{{route('game.show', $gameItem['id'])}}">Luister de muziek</a>
                         </div>
